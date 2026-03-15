@@ -1,0 +1,11 @@
+'use strict';
+const express = require('express');
+const { authenticate } = require('../../middleware/auth');
+const controller = require('./dashboard.controller');
+
+const router = express.Router();
+router.use(authenticate);
+
+router.get('/', controller.getDashboard);
+
+module.exports = router;
