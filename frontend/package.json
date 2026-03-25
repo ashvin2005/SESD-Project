@@ -1,0 +1,28 @@
+{
+  "name": "fischer-jorden-frontend",
+  "version": "1.0.0",
+  "description": "Personal Finance Tracker — Frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0",
+    "axios": "^1.7.7",
+    "recharts": "^2.13.3",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10",
+    "eslint": "^9.13.0"
+  }
+}
