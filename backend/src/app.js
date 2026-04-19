@@ -67,7 +67,7 @@ const ALLOWED_ORIGINS = [
 ].filter(Boolean);
 
 const ALLOWED_ORIGIN_REGEX = [
-  /^https:\/\/fj-be-r2-ashvin-tiwari.*\.vercel\.app$/,
+  /^https:\/\/sesd-project.*\.vercel\.app$/,
   ...parseRegexList(process.env.CORS_ALLOWED_ORIGIN_REGEX),
 ];
 
