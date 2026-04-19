@@ -4,6 +4,7 @@ const { NotFoundError } = require('../../shared/errors');
 const { NOTIFICATION_TYPES } = require('../../config/constants');
 const emailService = require('./email.service');
 const logger = require('../../shared/utils/logger');
+const notificationEmitter = require('../../shared/events/NotificationEmitter');
 
 async function getAll(userId, { unread, limit, offset } = {}) {
   const [notifications, unreadCount] = await Promise.all([
@@ -78,5 +79,12 @@ async function sendBudgetAlert(userId, budget, percentage, { userEmail, emailEna
     userEmail,
   });
 }
+
+// Observer pattern — subscribe to budget.alert events emitted by budgetAlertJob
+notificationEmitter.on('budget.alert', ({ userId, budget, percentage, userEmail, emailEnabled }) => {
+  sendBudgetAlert(userId, budget, percentage, { userEmail, emailEnabled }).catch((err) => {
+    logger.error('Observer: failed to handle budget.alert event', { userId, error: err.message });
+  });
+});
 
 module.exports = { getAll, markRead, markAllRead, deleteOne, deleteAll, createNotification, sendBudgetAlert };

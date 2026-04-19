@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const { db } = require('../config/database');
 const { getPeriodBounds } = require('../shared/utils/dates');
 const budgetsRepo = require('../modules/budgets/budgets.repository');
-const notificationsService = require('../modules/notifications/notifications.service');
+const notificationEmitter = require('../shared/events/NotificationEmitter');
 const logger = require('../shared/utils/logger');
 
 
@@ -51,7 +51,10 @@ async function processUserBudgets(user) {
 
       if (percentage < (budget.alert_threshold || 80)) continue;
 
-      await notificationsService.sendBudgetAlert(user.id, budget, percentage, {
+      notificationEmitter.emit('budget.alert', {
+        userId: user.id,
+        budget,
+        percentage,
         userEmail: user.email,
         emailEnabled: user.email_notifications,
       });
